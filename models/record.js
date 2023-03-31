@@ -13,18 +13,18 @@ const recordSchema = new Schema({
     type: Number,
     required: true
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    index: true,
-    required: true
-  },
-  categoryId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
-    index: true,
-    required: true
-  }
+  // userId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   index: true,
+  //   required: true
+  // },
+  // categoryId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Category',
+  //   index: true,
+  //   required: true
+  // },
 })
 
 //透過 module.exports 輸出
