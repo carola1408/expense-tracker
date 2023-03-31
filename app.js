@@ -10,11 +10,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const app = express()
 
-// setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', handlebars)
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
+// setting template engine
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常
@@ -28,7 +28,7 @@ db.once('open', () => {
 
 // 設定首頁路由
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.render('index')
 })
 
 // 設定 port 3000
