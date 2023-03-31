@@ -8,8 +8,8 @@ const categorySchema = new Schema({
   icon: {
     type: String,
     required: true
-  },
+  }
 })
 
 //透過 module.exports 輸出
-module.exports = mongoose.model('category, categorySchema')
+module.exports = mongoose.model('Category', categorySchema)
