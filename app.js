@@ -1,11 +1,18 @@
 // 載入 express 並建構應用程式伺服器
 const express = require('express') //載入 express
 const mongoose = require('mongoose') // 載入 mongoose
+// require express-handlebars here
+const exphbs = require('express-handlebars')
+
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const app = express()
+
+// setting template engine
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.set('view engine', handlebars)
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 
 // 取得資料庫連線狀態
