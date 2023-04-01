@@ -3,6 +3,8 @@ const express = require('express') //載入 express
 const mongoose = require('mongoose') // 載入 mongoose
 // require express-handlebars here
 const exphbs = require('express-handlebars')
+const Record = require('./models/record') // 載入Record model
+const Category = require('./models/category') // 載入 Category model
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
