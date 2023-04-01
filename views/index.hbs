@@ -1,4 +1,10 @@
 <div class="d-flex flex-column align-items-center mt-5">
+  {{!-- amount --}}
+  <div class="row">
+    <div class="total-amount d-flex flex-column align-items-center m-5">
+      <h2 style="text-align: center">總金額:{{totalAmount}} 元</h2>
+    </div>
+  </div>
   {{!-- records --}}
   <ul class="record-list list-group list-group-light" style="width: 700px">
     {{#each records}}
@@ -11,6 +17,7 @@
           <p class="record-date text-muted mb-0">{{ this.date }}</p>
         </div>
       </div>
+
       {{/each}}
 
   </ul>
