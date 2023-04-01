@@ -1,1 +1,17 @@
-<h2>Hello world! 這是 index</h2>
+<div class="d-flex flex-column align-items-center mt-5">
+  {{!-- records --}}
+  <ul class="record-list list-group list-group-light" style="width: 700px">
+    {{#each records}}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <h2 class="record-category-icon"><i class="{{ this.icon }}"></i></h2>
+        <div class="ms-3">
+          <h4 class="record-name fw-bold mb-1">{{ this.name }}</h4>
+          <h5 class="record-name fw-bold mb-1">${{ this.amount }}</h5>
+          <p class="record-date text-muted mb-0">{{ this.date }}</p>
+        </div>
+      </div>
+      {{/each}}
+
+  </ul>
+</div>
