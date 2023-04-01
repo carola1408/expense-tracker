@@ -12,10 +12,16 @@
     <div class="mb-3">
       <label for="categoryId">類別<span class="text-danger">*</span></label>
       <select class="form-control" id="categoryId" name="categoryId" required>
-        <option value="">請選擇類別</option>
+        {{!-- <option value="">請選擇類別</option>
         {{#each categories}}
         <option value="{{ this._id }}">{{ this.name }}</option>
-        {{/each}}
+        {{/each}} --}}
+        <option value="" selected>Select</option>
+        <option value="1">家居物業</option>
+        <option value="2">交通出行</option>
+        <option value="3">休閒娛樂</option>
+        <option value="4">餐飲食品</option>
+        <option value="5">其他</option>
       </select>
     </div>
     <div class="mb-3">
