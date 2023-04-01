@@ -5,7 +5,7 @@ const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const Record = require('./models/record') // 載入 Record model
-const record = require('./models/record')
+
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
