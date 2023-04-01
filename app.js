@@ -34,11 +34,16 @@ db.once('open', () => {
 // 設定首頁路由
 app.get('/', (req, res) => {
   Record.find() // 取出 Record model 裡的所有資料
-    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(records => res.render('index', { records }))
+    .lean() // 把 Mongoose的 Model物件轉換成乾淨的JavaScript 資料陣列
+    .then(records => {
+      let totalAmount = 0
+      for (let i = 0; i < records.length; i++) {
+        totalAmount += records[i].amount
+      }
+      return res.render('index', { records, totalAmount })
+    })
     .catch(error => console.log(error))
 })
-
 // new record page
 app.get('/records/new', (req, res) => {
   return res.render('new')
