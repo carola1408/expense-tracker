@@ -70,7 +70,11 @@ app.get('/records/:id/edit', (req, res) => {
 app.post('/records/:id/edit', (req, res) => {
   const id = req.params.id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.findById({ id }, req.body)
+  return Record.findById(id)
+    .then(record => {
+      record.set({ name, date, amount, categoryId })
+      return record.save()
+    })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
