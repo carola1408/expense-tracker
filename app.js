@@ -6,7 +6,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const Record = require('./models/record') // 載入 Record model
 const Category = require('./models/category')
-const record = require('./models/record')
+const methodOverride = require('method-override') // 載入 method-override
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -32,6 +32,8 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 // 設定首頁路由
 app.get('/', (req, res) => {
   Record.find() // 取出 Record model 裡的所有資料
@@ -69,7 +71,7 @@ app.get('/records/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 // 設定Update 功能路由
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
   return Record.findById(id)
@@ -82,7 +84,7 @@ app.post('/records/:id/edit', (req, res) => {
 })
 
 // 設定刪除路由
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(record => record.remove())

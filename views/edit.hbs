@@ -1,6 +1,6 @@
 <div class="d-flex flex-column align-items-center mt-5">
   <h4>請輸入你的支出</h4>
-  <form action="/records/{{record._id}}/edit" method="POST">
+  <form action="/records/{{record._id}}?_method=PUT" method="POST">
     <div class="mb-3">
       <p class="mb-3"><span class="text-danger">*</span>必填欄位</p>
       <label for="name" class="mb-2">名稱<span class="text-danger">*</span></label>
