@@ -58,6 +58,22 @@ app.post('/records', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 設定修改路由
+app.get('/records//edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then((record) => res.render('edit', { record }))
+    .catch(error => console.log(error))
+})
+// 設定Update 功能路由
+app.post('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
+  return Record.findById({ id }, req.body)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 // 設定 port 3000
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')

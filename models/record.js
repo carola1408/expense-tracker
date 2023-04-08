@@ -24,7 +24,7 @@ const recordSchema = new Schema({
   //   ref: 'Category',
   //   index: true,
   //   required: true
-  // },
+  // }
 })
 
 //透過 module.exports 輸出
