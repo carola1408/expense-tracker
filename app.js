@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const Record = require('./models/record') // 載入 Record model
 const Category = require('./models/category')
+const record = require('./models/record')
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -75,6 +76,15 @@ app.post('/records/:id/edit', (req, res) => {
       record.set({ name, date, amount, categoryId })
       return record.save()
     })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+// 設定刪除路由
+app.post('/records/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
