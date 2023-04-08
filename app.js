@@ -59,7 +59,7 @@ app.post('/records', (req, res) => {
 })
 
 // 設定修改路由
-app.get('/records//edit', (req, res) => {
+app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .lean()
