@@ -6,6 +6,14 @@ const router = express.Router()
 router.get('/login', (req, res) => {
   res.render('login')
 })
+router.post('/login', (req, res) => {
+
+})
+
+// 設定register路由
+router.get('/register', (req, res) => {
+  res.render('register')
+})
 
 // 匯出路由模組
 module.exports = router
