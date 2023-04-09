@@ -4,7 +4,7 @@ const mongoose = require('mongoose') // 載入 mongoose
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
-const Record = require('./models/record') // 載入 Record model
+
 const Category = require('./models/category')
 const methodOverride = require('method-override') // 載入 method-override
 
@@ -12,15 +12,14 @@ const methodOverride = require('method-override') // 載入 method-override
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+
+// 引用路由器
+const routes = require('./routes')
 const app = express()
 
+// 設定連線到 mongoDB
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
-// setting template engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
-app.set('view engine', 'hbs')
-// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
-app.use(bodyParser.urlencoded({ extended: true }))
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常
@@ -32,65 +31,20 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// setting template engine
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
-// 設定首頁路由
-app.get('/', (req, res) => {
-  Record.find() // 取出 Record model 裡的所有資料
-    .lean() // 把 Mongoose的 Model物件轉換成乾淨的JavaScript 資料陣列
-    .sort({ _id: "desc" })
-    .then(records => {
-      let totalAmount = 0
-      for (let i = 0; i < records.length; i++) {
-        totalAmount += records[i].amount
-      }
-      return res.render('index', { records, totalAmount })
-    })
-    .catch(error => console.log(error))
-})
 
-// new record page
-app.get('/records/new', (req, res) => {
-  return res.render('new')
-})
+// 將 request 導入路由器
+app.use(routes)
 
-// create new record
-app.post('/records', (req, res) => {
-  const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.create({ name, date, amount, categoryId })     // 存入資料庫
-    .then(() => res.redirect('/')) // 新增完成後導回首頁
-    .catch(error => console.log(error))
-})
 
-// 設定修改路由
-app.get('/records/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .lean()
-    .then((record) => res.render('edit', { record }))
-    .catch(error => console.log(error))
-})
-// 設定Update 功能路由
-app.put('/records/:id', (req, res) => {
-  const id = req.params.id
-  const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.findById(id)
-    .then(record => {
-      record.set({ name, date, amount, categoryId })
-      return record.save()
-    })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 設定刪除路由
-app.delete('/records/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .then(record => record.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
 // 設定 port 3000
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
