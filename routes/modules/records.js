@@ -11,25 +11,28 @@ router.get('/new', (req, res) => {
 
 // create new record
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.create({ name, date, amount, categoryId })     // 存入資料庫
+  return Record.create({ name, date, amount, userId, categoryId })     // 存入資料庫
     .then(() => res.redirect('/')) // 新增完成後導回首頁
     .catch(error => console.log(error))
 })
 
 // 設定修改路由
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne(_id, userId)
     .lean()
     .then((record) => res.render('edit', { record }))
     .catch(error => console.log(error))
 })
 // 設定Update 功能路由
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.findById(id)
+  return Record.findOne(_id, userId)
     .then(record => {
       record.set({ name, date, amount, categoryId })
       return record.save()
@@ -40,8 +43,9 @@ router.put('/:id', (req, res) => {
 
 // 設定刪除路由
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne(_id, userId)
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
