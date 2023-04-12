@@ -18,4 +18,5 @@ const userSchema = new Schema({
     default: Date.now
   }
 })
+//透過 module.exports 輸出
 module.exports = mongoose.model('User', userSchema)
