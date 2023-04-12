@@ -5,7 +5,7 @@ const session = require('express-session') // 載入 session
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const Category = require('./models/category')
-const methodOverride = require('method-override') // 載入 method-override
+const methodOverride = require('method-override')  // 載入 method-override
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -18,7 +18,7 @@ const routes = require('./routes')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 const app = express()
-
+const PORT = process.env.PORT || 3000
 
 
 // setting template engine
@@ -40,11 +40,16 @@ app.use(methodOverride('_method'))
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 // 將 request 導入路由器
 app.use(routes)
 
 
 // 設定 port 3000
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('App is running on http://localhost:3000')
 })
