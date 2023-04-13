@@ -6,6 +6,8 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const Category = require('./models/category')
 const methodOverride = require('method-override')  // 載入 method-override
+const flash = require('connect-flash')  // 引用connect-flash
+
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -39,10 +41,14 @@ app.use(methodOverride('_method'))
 
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
+// 掛載flash套件
+app.use(flash())
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
   next()
 })
 // 將 request 導入路由器
