@@ -5,9 +5,9 @@ const categorySchema = new Schema({
     type: String,
     required: true
   },
-  icon: {
-    type: String,
-    required: true
+  id: {
+    type: Number,
+    required: true,
   }
 })
 

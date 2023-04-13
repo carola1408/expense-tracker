@@ -7,7 +7,7 @@ const Record = require("../../models/record")
 // 設定首頁路由
 router.get('/', (req, res) => {
   const userId = req.user._id
-  Record.find(userId)
+  Record.find({ userId })
     .lean() // 把 Mongoose的 Model物件轉換成乾淨的JavaScript 資料陣列
     .sort({ _id: "desc" })
     .then(records => {

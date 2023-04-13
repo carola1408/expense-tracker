@@ -13,7 +13,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.create({ name, date, amount, userId, categoryId })     // 存入資料庫
+  return Record.create({ name, date, amount, userId, categoryId })    // 存入資料庫
     .then(() => res.redirect('/')) // 新增完成後導回首頁
     .catch(error => console.log(error))
 })
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  return Record.findOne(_id, userId)
+  return Record.findOne({ _id, userId })
     .lean()
     .then((record) => res.render('edit', { record }))
     .catch(error => console.log(error))
@@ -32,7 +32,7 @@ router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
-  return Record.findOne(_id, userId)
+  return Record.findOne({ _id, userId })
     .then(record => {
       record.set({ name, date, amount, categoryId })
       return record.save()
@@ -45,7 +45,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  return Record.findOne(_id, userId)
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
