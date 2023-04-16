@@ -49,8 +49,10 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   // 反序列化時取得的 user 資訊
   res.locals.user = req.user
-  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
-  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
+  // 設定 success_msg 訊息
+  res.locals.success_msg = req.flash('success_msg')
+  // 設定 warning_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 // 將 request 導入路由器
