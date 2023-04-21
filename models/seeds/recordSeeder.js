@@ -8,10 +8,6 @@ const db = require('../../config/mongoose') // 載入 mongoose
 const User = require("../user") // 載入 user
 
 
-
-// 載入 JSON
-const recordList = require('../../records.json').results
-
 const SEED_USER = [{
   name: '廣志',
   email: 'user1@test.com',
