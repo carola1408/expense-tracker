@@ -64,17 +64,18 @@ db.once("open", () => {
         name,
         email,
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-      }).then((user) => {
-        const userId = user._id;
-        const records = recordIndex.map((index) => {
-          return { ...SEED_RECORD[index], userId };
-        });
-        return Record.create(records)
       })
+        .then((user) => {
+          const userId = user._id;
+          const records = recordIndex.map((index) => {
+            return { ...SEED_RECORD[index], userId };
+          });
+          return Record.create(records)
+        })
     })
   )
     .then(() => {
       console.log("Record seeder is done!")
-      process.exit()
+      process.exit() //關閉這段 Node 執行程序
     })
 })
