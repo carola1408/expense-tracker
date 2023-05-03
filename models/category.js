@@ -5,8 +5,8 @@ const categorySchema = new Schema({
     type: String,
     required: true
   },
-  id: {
-    type: Number,
+  image: {
+    type: String,
     required: true,
   }
 })
