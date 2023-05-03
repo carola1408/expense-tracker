@@ -14,12 +14,11 @@
     <div class="mb-3">
       <label for="categoryId">類別<span class="text-danger">*</span></label>
       <select class="form-control" id="categoryId" name="categoryId" required>
-        <option value="" selected>請選擇</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
+        {{#each categories}}
+        <option value="{{this.id}}" {{#if this.id ../record.categoryId}} selected {{/if}}>
+          {{this.name}}
+        </option>
+        {{/each}}
       </select>
     </div>
     <div class="mb-3">

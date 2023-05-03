@@ -3,13 +3,12 @@
   <form class="d-flex flex-row" action="/" method="GET">
     <div class="category-group input-group" style="width:400px">
       <select class="form-select col" id="category" name="categoryId" onchange="this.form.submit()">
-        {{#if categoryName}}
-        <option value="{{categoryId}}" hidden="hidden" selected="selected">{{categoryName}}</option>
-        {{/if}}
-        <option value="all">全部</option>
-        {{#each categories}}
-        <option value="{{ this._id }}">{{ this.name }}</option>
-        {{/each}}
+        <option value="6" {{#ifCond 6 id }}selected{{/ifCond}}>類別</option>
+        <option value="1" {{#ifCond 1 id }}selected{{/ifCond}}>家居物業</option>
+        <option value="2" {{#ifCond 2 id }}selected{{/ifCond}}>交通出行</option>
+        <option value="3" {{#ifCond 3 id }}selected{{/ifCond}}>休閒娛樂</option>
+        <option value="4" {{#ifCond 4 id }}selected{{/ifCond}}>餐飲食品</option>
+        <option value="5" {{#ifCond 5 id }}selected{{/ifCond}}>其他</option>
       </select>
     </div>
   </form>
@@ -24,12 +23,11 @@
     {{#each records}}
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
-        <h2 class="record-category-icon"><i class="{{ this.icon }}"></i></h2>
-        <div class="ms-3">
-          <h4 class="record-name fw-bold mb-1">{{ this.name }}</h4>
-          <h5 class="record-name fw-bold mb-1">${{ this.amount }}</h5>
-          <p class="record-date text-muted mb-0">{{ this.date }}</p>
-        </div>
+        {{#ifCond 1 this.categoryId}}<i class="fa-solid fa-house"></i>{{/ifCond}}
+        {{#ifCond 2 this.categoryId}}<i class="fa-solid fa-van-shuttle"></i>{{/ifCond}}
+        {{#ifCond 3 this.categoryId}}<i class="fa-solid fa-face-grin-beam"></i>{{/ifCond}}
+        {{#ifCond 4 this.categoryId}}<i class="fa-solid fa-utensils"></i>{{/ifCond}}
+        {{#ifCond 5 this.categoryId}}<i class="fa-solid fa-pen"></i>{{/ifCond}}
       </div>
 
       <div class="column">
