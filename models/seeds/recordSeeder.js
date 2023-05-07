@@ -4,11 +4,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const bcrypt = require("bcryptjs") // 載入 bcryptjs model
 const Record = require('../record') // 載入 record model
-const Category = require('../category') // 載入 category model
 const db = require('../../config/mongoose') // 載入 mongoose
 const User = require("../user") // 載入 user
-const recordsData = require('./records').results // 載入 recordsList 
 
+//把「兩個使用者」的資料定義成 SEED_USER 物件
 const SEED_USER = [{
   name: '廣志',
   email: 'user1@test.com',
@@ -23,6 +22,7 @@ const SEED_USER = [{
 }
 ];
 
+//把5筆的資料定義成 SEED_Record 物件
 const SEED_Record = [
   {
     name: "午餐",
@@ -82,30 +82,3 @@ db.once("open", () => {
     })
 })
 
-// db.once('open', () => {
-//   // get categories from db
-//   const categories = Category.find().lean()
-//   // map categories data in to name: id data pair
-//   const categoryIds = {}
-//   categories.map(category => {
-//     categoryIds[category.name] = category._id
-//   })
-
-
-//   const salt = bcrypt.genSalt(10)
-//   const hash = bcrypt.hash(SEED_USER.password, salt)
-//   // load user seed into db
-//   const user = User.create({
-//     name: SEED_USER.name,
-//     email: SEED_USER.email,
-//     password: hash
-//   })
-//   const userId = user._id
-//   // create promises to load expenses seed into db
-//   const records = recordIndex.map((index) => {
-//     return { ...SEED_Record[index], userId }
-//   })
-//   Promise.all(records)
-//   console.log('Record seeder is done!')
-//   process.exit()
-// })
