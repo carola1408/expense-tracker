@@ -8,11 +8,11 @@ const imageUrls = {
 };
 
 Handlebars.registerHelper("imageUrl", function (num) {
-  return imageUrls[num][1]
-})
+  return imageUrls[num][1];
+});
 
 module.exports = {
   ifCond: function (a, b, options) {
     return a === b ? options.fn(this) : options.inverse(this);
-  }
-}
+  },
+};
