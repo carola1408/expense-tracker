@@ -1,6 +1,6 @@
 <div class="d-flex flex-column align-items-center mt-5">
   <h4>請修改你的支出</h4>
-  <form action="/records/{{record._id}}?_method=PUT" method="POST">
+  <form action="/records/{{ record._id }}?_method=PUT" method="POST">
     <div class="mb-3">
       <p class="mb-3"><span class="text-danger">*</span>必填欄位</p>
       <label for="name" class="mb-2">名稱<span class="text-danger">*</span></label>
@@ -14,8 +14,10 @@
     <div class="mb-3">
       <label for="categoryId">類別<span class="text-danger">*</span></label>
       <select class="form-control" id="categoryId" name="categoryId" required>
+
         {{#each categories}}
-        <option value="{{ this._id }}">{{ this.name }}</option>
+        <option value="{{ this._id }}" {{#ifCond this.id ../record.categoryId}} selected {{/ifCond}}>{{ this.name }}
+        </option>
         {{/each}}
       </select>
     </div>

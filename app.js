@@ -4,7 +4,6 @@ const session = require('express-session') // 載入 session
 // require express-handlebars here
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
-const Category = require('./models/category')
 const methodOverride = require('method-override')  // 載入 method-override
 const flash = require('connect-flash')  // 引用connect-flash
 const handlebars = require('./helpers/handlebars') // 引用handlebars

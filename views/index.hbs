@@ -3,11 +3,7 @@
   <form class="d-flex flex-row" action="/" method="GET">
     <div class="category-group input-group" style="width:400px">
       <select class="form-select col" id="category" name="categoryId" onchange="this.form.submit()">
-        {{#if category}}
-        <option value="{{category._id}}" hidden="hidden" selected="selected">
-          {{category.name}}</option>
-        {{/if}}
-        <option value="all">全部</option>
+        <option value="" disabled selected>類別</option>
         {{#each categories}}
         <option value="{{ this._id }}">{{ this.name }}</option>
         {{/each}}

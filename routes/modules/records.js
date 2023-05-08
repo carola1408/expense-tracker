@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 // 引入models
 const Record = require("../../models/record")
+const Category = require('../../models/category')
 
 // new record page
 router.get('/new', (req, res) => {
@@ -22,25 +23,36 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
+  const categories = []
+  Category.find()
+    .lean()
+    .sort({ id: "asc" })
+    .then((category) => {
+      categories.push(...category);
+    })
+
   return Record.findOne({ _id, userId })
     .lean()
-    .then((record) => res.render('edit', { record }))
+    .then((record) => res.render('edit', { record, categories }))
     .catch(error => console.log(error))
 })
 // 設定Update 功能路由
+
 router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
+  const { name, date, amount, categoryId } = req.body
   return Record.findOne({ _id, userId })
     .then(record => {
-      record.set({ name, date, amount, categoryId })
+      name,
+        date,
+        amount,
+        categoryId
       return record.save()
     })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-
 // 設定刪除路由
 router.delete('/:id', (req, res) => {
   const userId = req.user._id
