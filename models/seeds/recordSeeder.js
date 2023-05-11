@@ -27,32 +27,37 @@ const SEED_Record = [
   {
     name: "午餐",
     date: "2019-04-23",
+    categoryId: 4,
     amount: 60,
-    categoryId: 4
+
   },
   {
     name: "晚餐",
     date: "2019-04-23",
+    categoryId: 3,
     amount: 60,
-    categoryId: 3
+
   },
   {
     name: "捷運",
     date: "2019-04-23",
+    categoryId: 2,
     amount: 120,
-    categoryId: 2
+
   },
   {
     name: "電影：驚奇隊長",
     date: "2019-04-23",
+    categoryId: 3,
     amount: 220,
-    categoryId: "3"
+
   },
   {
     name: "租金",
     date: "2015-04-01",
+    categoryId: 1,
     amount: 25000,
-    categoryId: 1
+
   }
 ]
 
