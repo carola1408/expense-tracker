@@ -6,7 +6,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const methodOverride = require('method-override')  // 載入 method-override
 const flash = require('connect-flash')  // 引用connect-flash
-const handlebars = require('./helpers/handlebars') // 引用handlebars
+// const handlebars = require('./helpers/handlebars') // 引用handlebars
 
 // 加入這段 code, 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3000
 
 
 // setting template engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: handlebars }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(session({
