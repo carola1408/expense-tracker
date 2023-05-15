@@ -1,9 +1,9 @@
 const Category = require('../category') // 載入 category model
 const db = require('../../config/mongoose') // 載入 mongoose
 const seedCategory = require('./category.json') //載入 json
-// if (process.env.NODE_ENV !== "production") {
-//   require("dotenv").config();
-// }
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 
 
@@ -21,12 +21,3 @@ db.once("open", () => {
     .catch((error) => console.log(error));
 })
 
-// db.once('open', () => {
-//   Promise.all(seedCategory.map(item => {
-//     return Category.create({ ...item })
-//   })
-//   )
-//     .then(data => console.log('Done = ', data))
-//     .catch(console.error)
-//     .finally(() => process.exit())
-// })
