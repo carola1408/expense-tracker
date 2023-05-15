@@ -6,15 +6,12 @@ const Record = require("../../models/record")
 const Category = require('../../models/category')
 
 // new record page
-// router.get('/new', (req, res) => {
-//   return res.render('new')
-// })
 router.get('/new', (req, res) => {
   Category.find()
     .lean()
     .then(category => res.render('new', { category }))
 })
-// create new record
+//create new record
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, amount, categoryId } = req.body      // 從 req.body 拿出表單裡的資料
