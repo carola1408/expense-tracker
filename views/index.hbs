@@ -6,8 +6,7 @@
         <option value="" disabled selected>類別</option>
         <option value="">全部類別</option>
         {{#each category}}
-        <option data-one="{{../categoryChoose}}" data-two="{{ this._id }}" value="{{ this._id }}" {{category
-          ../categoryChoose this._id}}>{{ this.name }}</option>
+        <option value="{{this.id}}" {{#ifCond this.id ../categoryId}}selected{{/ifCond}}>{{this.name}}</option>
         {{/each}}
       </select>
     </div>
