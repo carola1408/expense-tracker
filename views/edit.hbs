@@ -1,33 +1,49 @@
-<div class="d-flex flex-column align-items-center mt-5">
-  <h4>請修改你的支出</h4>
-  <form action="/records/{{ record._id }}?_method=PUT" method="POST">
-    <div class="mb-3">
-      <p class="mb-3"><span class="text-danger">*</span>必填欄位</p>
-      <label for="name" class="mb-2">名稱<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ record.name }}"
-        required>
-    </div>
-    <div class="mb-3">
-      <label for="date" class="mb-2">日期<span class="text-danger">*</span></label>
-      <input type="date" class="form-control" id="date" name="date" value="{{ record.date }}" required>
-    </div>
-    <div class="mb-3">
-      <label for="categoryId">類別<span class="text-danger">*</span></label>
-      <select class="form-control" id="categoryId" name="categoryId" required>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      {{!-- 之後POST改PUT --}}
+      <form action="/records/{{_id}}?_method=PUT" method="POST">
+        <div class="title d-flex mb-4">
+          <h5 class="mr-5">*必填欄位</h5>
+          <h2 class="ml-4">請修改你的支出</h2>
+        </div>
 
-        {{#each categories}}
-        <option value="{{this.id}}" {{#ifCond this.id ../record.categoryId}} selected {{/ifCond}}>
-          {{this.name}}
-        </option>
-        {{/each}}
-      </select>
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">名稱*</span>
+          </div>
+          <input type="text" class="form-control" name="name" value="{{record.name}}">
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">日期*</span>
+          </div>
+          <input type="date" class="form-control" name="date" value="{{record.date}}">
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <label for="category" class="input-group-text">類別*</label>
+          </div>
+          <select name="category" id="category" class="form-control" value="{{record.category}}">
+            {{#each categories}}
+            <option value="{{this.name}}" selected>{{this.name}}
+            </option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">金額*</span>
+          </div>
+          <input type="number" class="form-control" min="0" name="amount" value="{{record.amount}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">送出</button>
+        <a href="/" class="btn btn-primary">返回</a>
+      </form>
     </div>
-    <div class="mb-3">
-      <label for="amount" class="mb-2">金額<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="amount" name="amount" placeholder="輸入金額" value="{{ record.amount }}"
-        required>
-    </div>
-    <button type="submit" class="btn btn-primary">送出</button>
-    <a href="/" class="btn btn-primary">返回</a>
-  </form>
+  </div>
 </div>

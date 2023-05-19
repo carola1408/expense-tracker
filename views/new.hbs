@@ -1,31 +1,48 @@
-<div class="d-flex flex-column align-items-center mt-5">
-  <h4>請輸入你的支出</h4>
-  <form action="/records" method="POST">
-    <div class="mb-3">
-      <p class="mb-3"><span class="text-danger">*</span>必填欄位</p>
-      <label for="name" class="mb-2">名稱<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="date" class="mb-2">日期<span class="text-danger">*</span></label>
-      <input type="date" class="form-control" id="date" name="date" required>
-    </div>
-    <div class="mb-3">
-      <label for="categoryId">類別<span class="text-danger">*</span></label>
-      <select name="categoryId" class="form-select" aria-label="Default select example">
-        <option value="" selected>請選擇</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <form action="/records" method="POST">
+        <div class="title d-flex mb-4">
+          <h5 class="mr-5">*必填欄位</h5>
+          <h2 class="ml-4">請輸入你的支出</h2>
+        </div>
 
-      </select>
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">名稱*</span>
+          </div>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">日期*</span>
+          </div>
+          <input type="date" class="form-control" name="date" required>
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <label for="category" class="input-group-text">類別*</label>
+          </div>
+          <select name="category" id="category" class="form-control">
+            {{#each categories}}
+            <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">金額*</span>
+          </div>
+          <input type="number" class="form-control" min="0" name="amount" required>
+        </div>
+
+        <div class="button ">
+          <button type="submit" class="btn btn-primary">新增支出</button>
+        </div>
+      </form>
     </div>
-    <div class="mb-3">
-      <label for="amount" class="mb-2">金額<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="amount" name="amount" placeholder="輸入金額" required>
-    </div>
-    <button type="submit" class="btn btn-primary">新增支出</button>
-  </form>
+  </div>
 </div>
