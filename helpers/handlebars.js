@@ -1,5 +1,5 @@
 const Handlebars = require("handlebars");
-const imageUrls = {
+const icon = {
   1: ["家居物業", "fa-solid fa-house"],
   2: ["交通出行", "fa-solid fa-van-shuttle"],
   3: ["休閒娛樂", "fa-solid fa-face-grin-beam"],
@@ -7,7 +7,7 @@ const imageUrls = {
   5: ["其他", "fa-solid fa-pen"],
 };
 
-Handlebars.registerHelper("imageUrl", function (num) {
+Handlebars.registerHelper("icon", function (num) {
   return imageUrls[num][1]
 })
 

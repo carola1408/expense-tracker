@@ -16,7 +16,8 @@
       <select class="form-control" id="categoryId" name="categoryId" required>
 
         {{#each categories}}
-        <option value="{{ this._id }}" {{#ifCond this.id ../record.categoryId}} selected {{/ifCond}}>{{ this.name }}
+        <option value="{{this.id}}" {{#ifCond this.id ../record.categoryId}} selected {{/ifCond}}>
+          {{this.name}}
         </option>
         {{/each}}
       </select>
