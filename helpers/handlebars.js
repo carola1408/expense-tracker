@@ -8,7 +8,7 @@ const icon = {
 };
 
 Handlebars.registerHelper("icon", function (num) {
-  return imageUrls[num][1]
+  return icon[num][1]
 })
 
 module.exports = {

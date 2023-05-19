@@ -4,6 +4,8 @@ const router = express.Router()
 // 引入models
 const Record = require("../../models/record")
 const Category = require('../../models/category')
+const category = require('../../models/category')
+const record = require('../../models/record')
 
 
 // new record page
@@ -26,8 +28,6 @@ router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   const categories = []
-  const record = require('../../models/record')
-
   Category.find()
     .lean()
     .sort({ id: "asc" })
@@ -38,17 +38,16 @@ router.get('/:id/edit', (req, res) => {
       Record.findOne({ _id, userId })
         .lean()
         .then((record) => {
-          record.date = record.date.toISOString("fr-CA", {
+          record.date = record.date.toLocaleDateString("fr-CA", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
           })
+          res.render("edit", { record, categories })
         })
-      res.render('edit', { record, categories })
     })
     .catch((err) => console.log(err))
 })
-
 
 // 設定Update 功能路由
 
