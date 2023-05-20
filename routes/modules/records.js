@@ -13,7 +13,7 @@ router.get('/filter', async (req, res) => {
   const categoryData = {}
   const userId = req.user._id
   const filteredData = await Record.aggregate([
-    { $project: { userId: 1, name: 1, amount: 1, category: 1, date: { $substr: ["$date", 0, 7] }, day: { $substr: ["$date", 7, 9] }, merchant: 1 } },
+    { $project: { userId: 1, name: 1, amount: 1, category: 1, date: { $substr: ["$date", 0, 7] }, day: { $substr: ["$date", 7, 9] } } },
     { $match: { 'category': inputCategory, 'date': inputDate, userId } }
   ])
   // 產出 category icon 對應名字一物件，res.render中使用渲染出icon
@@ -46,7 +46,6 @@ router.get('/filter', async (req, res) => {
 
   getFilterData()
 })
-
 // 首頁新增支出
 router.get('/new', async (req, res) => {
   const categories = await Category.find().lean()
